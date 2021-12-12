@@ -3,14 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from datetime import datetime
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///taxi_call.db'
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
+"""Models creation"""
 
-# Создаем описание моделей Базы Данных
 
 class Drivers(db.Model):
     __tablename__ = 'drivers'
@@ -46,7 +45,7 @@ class Orders(db.Model):
     date_created = db.Column(db.String(), nullable=False, default=datetime.now())
     status = db.Column(db.String(), nullable=False, default='not_excepted')
 
-    def __init__(self, adress_from, adress_to, client_id, driver_id, date_created, status):
+    def __init__(self, adress_from, adress_to, client_id, driver_id, date_created, status) -> None:
         self.adress_from = adress_from
         self.adress_to = adress_to
         self.client_id = client_id
@@ -55,7 +54,8 @@ class Orders(db.Model):
         self.status = status
 
 
-# Создаем схемы
+"""Schemas creation"""
+
 
 class DriversSchema(ma.SQLAlchemySchema):
     class Meta:
@@ -86,16 +86,19 @@ class OrderUpdateSchema(ma.Schema):
     class Meta:
         fields = ("adress_from", "adress_to")
 
+
+"""Schemas manifestation"""
+
 drivers_schema = DriversSchema()
 clients_schema = ClientsSchema()
 orders_schema = OrdersSchema()
 
+"""Drivers methods"""
 
-# Методы для Drivers
 
 @app.route('/drivers&id=<int:id>', methods=['GET'])
 def get_driver(id):
-    get_driver = Drivers.query.get(id)
+    get_driver: str = Drivers.query.get(id)
     responce = drivers_schema.jsonify(get_driver)
     if responce.content_length < 5:
         return f"Not Found", 404
@@ -127,7 +130,8 @@ def drop_driver(id):
         return responce, 204
 
 
-# Методы для Clients
+"""Clients methods"""
+
 
 @app.route('/clients&id=<int:id>', methods=['GET'])
 def client_get(id):
@@ -163,7 +167,8 @@ def drop_client(id):
         return responce, 204
 
 
-# Методы для заказов
+"""Orders methods"""
+
 
 @app.route('/orders', methods=['POST'])
 def add_order():
@@ -200,7 +205,6 @@ def get_order(id):
 
 @app.route('/orders&id=<int:id>', methods=['PUT'])
 def edit_order(id):
-# парсинг значеий из запроса
     adress_from = request.json['adress_from']
     if adress_from == '':
         return '{"message":"adress_from value is empty"}', 400
@@ -214,7 +218,6 @@ def edit_order(id):
     driver_id = request.json['driver_id']
     if driver_id == '':
         return '{"message":"driver_id value is empty"}', 400
-# проверка на возможность изменения в зависимости от статуса
     update_order = Orders.query.get(id)
     order_status = update_order.status
     order_atribut = {update_order.client_id, update_order.driver_id, update_order.adress_from, update_order.adress_to}
@@ -227,7 +230,6 @@ def edit_order(id):
     update_order.adress_to = adress_to
     update_order.date_created = datetime.now()
     db.session.commit()
-# проверка флоу перехода статуса
     if order_status == 'not_accepted' and status == 'in_progress' or status == 'cancelled':
         update_order.status = status
         db.session.commit()
@@ -237,7 +239,7 @@ def edit_order(id):
         db.session.commit()
         return 'Status updated', 200
     else:
-        return 'Error: Status change not alowed', 400
+        return 'Error: Status change not allowed', 400
 
 
 app.run(host='0.0.0.0', port=5000)
