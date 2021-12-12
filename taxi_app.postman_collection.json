@@ -1,0 +1,270 @@
+{
+	"info": {
+		"_postman_id": "c8c929d1-4934-4d89-a110-1b08ab87717f",
+		"name": "taxi_app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Drivers",
+			"item": [
+				{
+					"name": "добавление водителя",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Иван Петрович Сидоров\",\n  \"car\": \"Lada Granda у995рк78\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.100.10:5000/drivers",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"100",
+								"10"
+							],
+							"port": "5000",
+							"path": [
+								"drivers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение водителя по id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.100.10:5000/drivers&id=5",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"100",
+								"10"
+							],
+							"port": "5000",
+							"path": [
+								"drivers&id=5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление водителя по id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.100.10:5000/drivers&id=5",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"100",
+								"10"
+							],
+							"port": "5000",
+							"path": [
+								"drivers&id=5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "Добавление клиента",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Игорь Иванов\",\n    \"is_vip\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.100.10:5000/clients",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"100",
+								"10"
+							],
+							"port": "5000",
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение клиента по id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.100.10:5000/clients&id=1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"100",
+								"10"
+							],
+							"port": "5000",
+							"path": [
+								"clients&id=1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление клиента по id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.100.10:5000/drivers&id=4",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"100",
+								"10"
+							],
+							"port": "5000",
+							"path": [
+								"drivers&id=4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Добавить заказ",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"client_id\": 12,\n  \"driver_id\": 6,\n  \"date_created\": \"2021-12-11T19:38:09.416Z\",\n  \"status\": \"not_accepted\",\n  \"adress_from\": \"Серова 10\",\n  \"adress_to\": \"Серова 510\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.100.10:5000/orders",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"100",
+								"10"
+							],
+							"port": "5000",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Изменить заказ по id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"client_id\": 14,\n  \"driver_id\": 6,\n  \"date_created\": \"2021-12-11T19:38:09.416Z\",\n  \"status\": \"not_accepted\",\n  \"adress_from\": \"Серова 10\",\n  \"adress_to\": \"Серова 510\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.100.10:5000/orders&id=10",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"100",
+								"10"
+							],
+							"port": "5000",
+							"path": [
+								"orders&id=10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Найти заказ по id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.100.10:5000/orders&id=10",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"100",
+								"10"
+							],
+							"port": "5000",
+							"path": [
+								"orders&id=10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
